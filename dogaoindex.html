@@ -1,0 +1,890 @@
+	
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dogão da Sol - Cardápio Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+font-family: 'Montserrat', sans-serif;
+background-color: #f5f5f5;
+}
+
+.hero-pattern {
+background-color: #ff6b35;
+background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.produto {
+transition: all 0.3s ease;
+border-radius: 16px;
+overflow: hidden;
+}
+
+.produto:hover {
+transform: translateY(-8px);
+box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.produto-img {
+height: 120px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+
+.produto-img::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 30%;
+background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+}
+
+.produto-content {
+padding: 1.5rem;
+}
+
+.btn-adicionar {
+transition: all 0.3s ease;
+border-radius: 50px;
+}
+
+.btn-adicionar:hover {
+transform: scale(1.05);
+}
+
+.categoria-btn {
+transition: all 0.3s ease;
+border-radius: 50px;
+font-weight: 600;
+}
+
+.categoria-btn:hover {
+transform: translateY(-2px);
+}
+
+.categoria-btn.active {
+background-color: #ff6b35;
+color: white;
+box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.badge {
+position: absolute;
+top: -8px;
+right: -8px;
+background-color: #ff6b35;
+color: white;
+border-radius: 50%;
+width: 24px;
+height: 24px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+font-weight: bold;
+box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+}
+
+.section-title {
+position: relative;
+display: inline-block;
+margin-bottom: 2rem;
+font-weight: 800;
+color: #333;
+}
+
+.section-title::after {
+content: '';
+position: absolute;
+bottom: -10px;
+left: 0;
+width: 60px;
+height: 4px;
+background: #ff6b35;
+border-radius: 2px;
+}
+
+.cart-sidebar {
+background: white;
+box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+}
+
+.cart-item {
+border-radius: 12px;
+transition: all 0.2s ease;
+}
+
+.cart-item:hover {
+background-color: #fff8f3;
+}
+
+.btn-quantity {
+width: 28px;
+height: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+transition: all 0.2s ease;
+}
+
+.btn-quantity:hover {
+transform: scale(1.1);
+}
+
+.special-tag {
+position: absolute;
+top: 10px;
+right: 10px;
+background: #ff6b35;
+color: white;
+padding: 4px 12px;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 600;
+z-index: 10;
+box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+}
+
+.logo-container {
+width: 180px;
+height: 180px;
+border-radius: 50%;
+overflow: hidden;
+border: 4px solid white;
+box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+margin: 0 auto;
+margin-top: -90px;
+position: relative;
+z-index: 20;
+background: white;
+}
+
+@media (max-width: 640px) {
+.logo-container {
+width: 140px;
+height: 140px;
+margin-top: -70px;
+}
+}
+
+.delivery-option {
+border: 2px solid transparent;
+transition: all 0.3s ease;
+cursor: pointer;
+}
+
+.delivery-option.selected {
+border-color: #ff6b35;
+background-color: #fff8f3;
+}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Hero Section -->
+<div class="hero-pattern w-full h-64 relative">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
+<div class="container mx-auto px-4 h-full flex items-center justify-center relative z-10">
+<h1 class="text-4xl md:text-5xl font-extrabold text-white text-center drop-shadow-lg">
+Cardápio Digital
+</h1>
+</div>
+</div>
+
+<!-- Logo -->
+<div class="container mx-auto px-4 relative">
+<div class="logo-container">
+<img src="https://i.postimg.cc/0y6qVsXh/Oficial.jpg" alt="Dogão da Sol Logo" class="w-full h-full object-cover">
+</div>
+</div>
+
+<!-- Categorias -->
+<div class="container mx-auto px-4 mt-8">
+<div class="flex overflow-x-auto pb-2 gap-3 justify-center">
+<button class="categoria-btn active px-5 py-3 bg-white shadow-md" onclick="filtrarCategoria('todos')">
+Todos
+</button>
+<button class="categoria-btn px-5 py-3 bg-white shadow-md" onclick="filtrarCategoria('hotdogs')">
+Hot Dogs
+</button>
+<button class="categoria-btn px-5 py-3 bg-white shadow-md" onclick="filtrarCategoria('bebidas')">
+Bebidas
+</button>
+<button class="categoria-btn px-5 py-3 bg-white shadow-md" onclick="filtrarCategoria('adicionais')">
+Adicionais
+</button>
+</div>
+
+<!-- Carrinho Flutuante Button -->
+<div class="fixed bottom-6 right-6 z-30">
+<button onclick="toggleCarrinho()" class="relative bg-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center">
+<span class="text-2xl">🛒</span>
+<span class="badge" id="carrinho-badge">0</span>
+</button>
+</div>
+</div>
+
+<!-- Produtos -->
+<div class="container mx-auto px-4 py-10 pb-32">
+<!-- Hot Dogs Section -->
+<div id="hotdogs-section" class="mb-16">
+<h2 class="text-3xl section-title">
+🌭 HOT DOGS
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Dogão Tradicional -->
+<div class="produto bg-white shadow-lg categoria-hotdogs">
+<div class="produto-img bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center">
+<span class="text-4xl">🌭</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Dogão Tradicional</h3>
+<span class="font-bold text-lg text-orange-600">R$15,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Pão de leite, 2 salsichas, purê de batata, batata palha, vinagrete, ketchup e maionese</p>
+<button onclick="adicionarAoCarrinho('Dogão Tradicional', 15)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Dogão Turbo no Prato -->
+<div class="produto bg-white shadow-lg categoria-hotdogs">
+<div class="produto-img bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center">
+<span class="text-4xl">🌭</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Dogão Turbo no Prato</h3>
+<span class="font-bold text-lg text-orange-600">R$30,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Pão de leite, 3 salsichas, purê de batata, milho, repolho, batata palha, vinagrete, bacon, calabresa, queijo cheddar, ketchup e maionese</p>
+<button onclick="adicionarAoCarrinho('Dogão Turbo no Prato', 30)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Dogão Vaca Loka -->
+<div class="produto bg-white shadow-lg categoria-hotdogs">
+<div class="produto-img bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center">
+<span class="text-4xl">🌭</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Dogão Vaca Loka</h3>
+<span class="font-bold text-lg text-orange-600">R$30,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Pão de leite, 2 salsichas, purê de batata, vinagrete, carne desfiada, queijo mussarela derretido, ketchup e maionese</p>
+<button onclick="adicionarAoCarrinho('Dogão Vaca Loka', 30)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Dogão Strogonoff Frango -->
+<div class="produto bg-white shadow-lg categoria-hotdogs">
+<div class="produto-img bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center">
+<span class="text-4xl">🌭</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Dogão Strogonoff Frango</h3>
+<span class="font-bold text-lg text-orange-600">R$30,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Pão de leite, 2 salsichas, purê de batata, batata palha, vinagrete, strogonoff de frango com creme, azeitonas, ketchup e maionese</p>
+<button onclick="adicionarAoCarrinho('Dogão Strogonoff Frango', 30)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Dogão Família Gigante -->
+<div class="produto bg-white shadow-lg categoria-hotdogs">
+<div class="produto-img bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center relative">
+<span class="text-4xl">🌭</span>
+<span class="special-tag">FAMÍLIA</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Dogão Família Gigante</h3>
+<span class="font-bold text-lg text-orange-600">R$70,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Pão de leite, 8 salsichas, purê de batata, milho, repolho, batata palha, vinagrete, bacon, calabresa, queijo cheddar, ketchup e maionese</p>
+<button onclick="adicionarAoCarrinho('Dogão Família Gigante', 70)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Bebidas Section -->
+<div id="bebidas-section" class="mb-16">
+<h2 class="text-3xl section-title">
+🥤 BEBIDAS
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Coca Cola lata -->
+<div class="produto bg-white shadow-lg categoria-bebidas">
+<div class="produto-img bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+<span class="text-4xl">🥤</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Coca Cola lata</h3>
+<span class="font-bold text-lg text-orange-600">R$7,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Refrigerante Coca Cola lata 350ml</p>
+<button onclick="adicionarAoCarrinho('Coca Cola lata', 7)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Antarctica lata -->
+<div class="produto bg-white shadow-lg categoria-bebidas">
+<div class="produto-img bg-gradient-to-r from-blue-400 to-blue-500 flex items-center justify-center">
+<span class="text-4xl">🥤</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Antarctica lata</h3>
+<span class="font-bold text-lg text-orange-600">R$7,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Refrigerante Antarctica lata 350ml</p>
+<button onclick="adicionarAoCarrinho('Antarctica lata', 7)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Coca Cola 2 litros -->
+<div class="produto bg-white shadow-lg categoria-bebidas">
+<div class="produto-img bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+<span class="text-4xl">🥤</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Coca Cola 2 litros</h3>
+<span class="font-bold text-lg text-orange-600">R$14,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Refrigerante Coca Cola garrafa 2 litros</p>
+<button onclick="adicionarAoCarrinho('Coca Cola 2 litros', 14)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Poty Guaraná 2 litros -->
+<div class="produto bg-white shadow-lg categoria-bebidas">
+<div class="produto-img bg-gradient-to-r from-green-400 to-green-500 flex items-center justify-center">
+<span class="text-4xl">🥤</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Poty Guaraná 2 litros</h3>
+<span class="font-bold text-lg text-orange-600">R$9,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Refrigerante Poty Guaraná garrafa 2 litros</p>
+<button onclick="adicionarAoCarrinho('Poty Guaraná 2 litros', 9)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Coca Cola 1 litro -->
+<div class="produto bg-white shadow-lg categoria-bebidas">
+<div class="produto-img bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+<span class="text-4xl">🥤</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Coca Cola 1 litro</h3>
+<span class="font-bold text-lg text-orange-600">R$10,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Refrigerante Coca Cola garrafa 1 litro</p>
+<button onclick="adicionarAoCarrinho('Coca Cola 1 litro', 10)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adicionais Section -->
+<div id="adicionais-section" class="mb-16">
+<h2 class="text-3xl section-title">
+➕ ADICIONAIS
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Calabresa -->
+<div class="produto bg-white shadow-lg categoria-adicionais">
+<div class="produto-img bg-gradient-to-r from-orange-300 to-orange-400 flex items-center justify-center">
+<span class="text-4xl">🥓</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Calabresa</h3>
+<span class="font-bold text-lg text-orange-600">R$3,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Adicional de calabresa para seu hot dog</p>
+<button onclick="adicionarAoCarrinho('Adicional de Calabresa', 3)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Bacon -->
+<div class="produto bg-white shadow-lg categoria-adicionais">
+<div class="produto-img bg-gradient-to-r from-orange-300 to-orange-400 flex items-center justify-center">
+<span class="text-4xl">🥓</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Bacon</h3>
+<span class="font-bold text-lg text-orange-600">R$3,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Adicional de bacon para seu hot dog</p>
+<button onclick="adicionarAoCarrinho('Adicional de Bacon', 3)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Repolho -->
+<div class="produto bg-white shadow-lg categoria-adicionais">
+<div class="produto-img bg-gradient-to-r from-green-300 to-green-400 flex items-center justify-center">
+<span class="text-4xl">🥬</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Repolho</h3>
+<span class="font-bold text-lg text-orange-600">R$1,50</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Adicional de repolho para seu hot dog</p>
+<button onclick="adicionarAoCarrinho('Adicional de Repolho', 1.5)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Milho -->
+<div class="produto bg-white shadow-lg categoria-adicionais">
+<div class="produto-img bg-gradient-to-r from-yellow-300 to-yellow-400 flex items-center justify-center">
+<span class="text-4xl">🌽</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Milho</h3>
+<span class="font-bold text-lg text-orange-600">R$1,50</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Adicional de milho para seu hot dog</p>
+<button onclick="adicionarAoCarrinho('Adicional de Milho', 1.5)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+
+<!-- Mussarela/Cheddar -->
+<div class="produto bg-white shadow-lg categoria-adicionais">
+<div class="produto-img bg-gradient-to-r from-yellow-300 to-yellow-400 flex items-center justify-center">
+<span class="text-4xl">🧀</span>
+</div>
+<div class="produto-content">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold">Mussarela/Cheddar</h3>
+<span class="font-bold text-lg text-orange-600">R$3,00</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Adicional de queijo mussarela ou cheddar para seu hot dog</p>
+<button onclick="adicionarAoCarrinho('Adicional de Queijo', 3)" class="btn-adicionar w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 font-medium flex items-center justify-center">
+<span class="mr-2">Adicionar ao Carrinho</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Carrinho Flutuante -->
+<div id="carrinho-flutuante" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden">
+<div class="absolute right-0 top-0 bottom-0 w-full md:w-96 cart-sidebar bg-white transform transition-transform duration-300 translate-x-full" id="carrinho-sidebar">
+<div class="flex flex-col h-full">
+<div class="bg-orange-500 text-white p-6 flex justify-between items-center">
+<h2 class="text-xl font-bold flex items-center">
+<span class="text-2xl mr-2">🛒</span> Seu Carrinho
+</h2>
+<button onclick="toggleCarrinho()" class="text-white hover:text-yellow-200">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+</svg>
+</button>
+</div>
+
+<div class="flex-1 overflow-y-auto p-6">
+<div id="carrinho-vazio" class="text-center py-10 text-gray-500">
+<div class="text-5xl mb-4">🛒</div>
+<p class="font-medium">Seu carrinho está vazio</p>
+<p class="text-sm mt-2">Adicione itens para continuar</p>
+</div>
+
+<ul id="lista-carrinho" class="space-y-4"></ul>
+</div>
+
+<div class="border-t border-gray-200 p-6 bg-gray-50">
+<!-- Opções de entrega -->
+<div class="mb-4">
+<h3 class="font-bold text-gray-700 mb-3">Forma de recebimento:</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="delivery-option p-3 rounded-lg bg-white shadow-sm selected" onclick="selecionarEntrega('retirada')">
+<div class="flex items-center">
+<div class="text-2xl mr-2">🏪</div>
+<div>
+<p class="font-medium">Retirada</p>
+<p class="text-xs text-gray-500">Buscar no local</p>
+</div>
+</div>
+</div>
+<div class="delivery-option p-3 rounded-lg bg-white shadow-sm" onclick="selecionarEntrega('entrega')">
+<div class="flex items-center">
+<div class="text-2xl mr-2">🛵</div>
+<div>
+<p class="font-medium">Entrega</p>
+<p class="text-xs text-gray-500">+ R$5,00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="flex justify-between items-center mb-2">
+<span class="text-gray-700 font-medium">Subtotal:</span>
+<span id="subtotal" class="font-bold text-lg">R$0,00</span>
+</div>
+
+<div id="taxa-entrega-container" class="flex justify-between items-center mb-2 hidden">
+<span class="text-gray-700 font-medium">Taxa de entrega:</span>
+<span class="font-bold text-lg">R$5,00</span>
+</div>
+
+<div class="flex justify-between items-center mb-6">
+<span class="text-gray-700 font-medium">Total:</span>
+<span id="total" class="font-bold text-xl text-orange-600">R$0,00</span>
+</div>
+
+<button id="finalizar" onclick="finalizarPedido()" class="w-full bg-green-500 hover:bg-green-600 text-white py-4 px-4 rounded-full font-bold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl">
+<span class="mr-2">Finalizar Pedido no WhatsApp</span>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-10">
+<div class="container mx-auto px-4 text-center">
+<div class="mb-6">
+<img src="https://i.postimg.cc/0y6qVsXh/Oficial.jpg" alt="Dogão da Sol Logo" class="h-20 w-20 mx-auto rounded-full object-cover border-2 border-orange-500">
+</div>
+<h3 class="text-2xl font-bold mb-2">Dogão da Sol</h3>
+<p class="text-gray-400 mb-6">Os melhores hot dogs da cidade!</p>
+<div class="flex justify-center space-x-6 mb-6">
+<a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+<path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+</svg>
+</a>
+<a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+<path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+</svg>
+</a>
+<a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+</svg>
+</a>
+</div>
+<p class="text-gray-500 text-sm">© 2023 Dogão da Sol - Todos os direitos reservados</p>
+</div>
+</footer>
+
+<script>
+let carrinho = [];
+let tipoEntrega = 'retirada'; // 'retirada' ou 'entrega'
+const taxaEntrega = 5.00;
+
+function adicionarAoCarrinho(nome, preco) {
+let itemExistente = carrinho.find(item => item.nome === nome);
+if (itemExistente) {
+itemExistente.quantidade++;
+} else {
+carrinho.push({ nome, preco, quantidade: 1 });
+}
+atualizarCarrinho();
+
+// Animação de feedback
+const botoes = document.querySelectorAll('.btn-adicionar');
+botoes.forEach(botao => {
+if (botao.textContent.includes(nome.substring(0, 10))) {
+botao.classList.add('bg-green-500');
+botao.innerHTML = '<span>Adicionado!</span> ✓';
+setTimeout(() => {
+botao.classList.remove('bg-green-500');
+botao.innerHTML = '<span class="mr-2">Adicionar ao Carrinho</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>';
+}, 1000);
+}
+});
+
+// Pulsar o badge do carrinho
+const badge = document.getElementById('carrinho-badge');
+badge.classList.add('animate-pulse');
+setTimeout(() => {
+badge.classList.remove('animate-pulse');
+}, 1000);
+
+// Mostrar o carrinho se for o primeiro item
+if (carrinho.length === 1) {
+toggleCarrinho();
+}
+}
+
+function removerDoCarrinho(index) {
+if (carrinho[index].quantidade > 1) {
+carrinho[index].quantidade--;
+} else {
+carrinho.splice(index, 1);
+}
+atualizarCarrinho();
+}
+
+function atualizarCarrinho() {
+let lista = document.getElementById('lista-carrinho');
+let carrinhoVazio = document.getElementById('carrinho-vazio');
+let badge = document.getElementById('carrinho-badge');
+let taxaEntregaContainer = document.getElementById('taxa-entrega-container');
+
+lista.innerHTML = '';
+
+let subtotal = 0;
+let quantidadeTotal = 0;
+
+carrinho.forEach((item, index) => {
+let li = document.createElement('li');
+li.className = 'cart-item bg-white p-4 rounded-lg shadow-sm border border-gray-100';
+
+li.innerHTML = `
+<div class="flex justify-between">
+<div>
+<h4 class="font-bold text-gray-800">${item.nome}</h4>
+<div class="flex items-center mt-2">
+<button onclick="removerDoCarrinho(${index})" class="btn-quantity bg-red-100 text-red-600 hover:bg-red-200">−</button>
+<span class="px-3 py-1 mx-2 bg-gray-100 rounded font-medium">${item.quantidade}</span>
+<button onclick="adicionarAoCarrinho('${item.nome}', ${item.preco})" class="btn-quantity bg-green-100 text-green-600 hover:bg-green-200">+</button>
+</div>
+</div>
+<div class="text-right">
+<div class="font-bold text-lg">R$${(item.preco * item.quantidade).toFixed(2)}</div>
+<div class="text-xs text-gray-500">R$${item.preco.toFixed(2)} cada</div>
+</div>
+</div>
+`;
+
+lista.appendChild(li);
+subtotal += item.preco * item.quantidade;
+quantidadeTotal += item.quantidade;
+});
+
+// Atualizar subtotal
+document.getElementById('subtotal').textContent = `R$${subtotal.toFixed(2)}`;
+
+// Calcular total com taxa de entrega se necessário
+let total = subtotal;
+if (tipoEntrega === 'entrega') {
+total += taxaEntrega;
+taxaEntregaContainer.classList.remove('hidden');
+} else {
+taxaEntregaContainer.classList.add('hidden');
+}
+
+document.getElementById('total').textContent = `R$${total.toFixed(2)}`;
+badge.textContent = quantidadeTotal;
+
+if (carrinho.length === 0) {
+carrinhoVazio.style.display = 'block';
+badge.style.display = 'none';
+} else {
+carrinhoVazio.style.display = 'none';
+badge.style.display = 'flex';
+}
+}
+
+function toggleCarrinho() {
+const carrinhoFlutuante = document.getElementById('carrinho-flutuante');
+const carrinhoSidebar = document.getElementById('carrinho-sidebar');
+
+if (carrinhoFlutuante.classList.contains('hidden')) {
+carrinhoFlutuante.classList.remove('hidden');
+setTimeout(() => {
+carrinhoSidebar.classList.remove('translate-x-full');
+}, 10);
+} else {
+carrinhoSidebar.classList.add('translate-x-full');
+setTimeout(() => {
+carrinhoFlutuante.classList.add('hidden');
+}, 300);
+}
+}
+
+function selecionarEntrega(tipo) {
+tipoEntrega = tipo;
+
+// Atualizar UI
+const opcoes = document.querySelectorAll('.delivery-option');
+opcoes.forEach(opcao => {
+if ((tipo === 'retirada' && opcao.textContent.includes('Retirada')) || 
+(tipo === 'entrega' && opcao.textContent.includes('Entrega'))) {
+opcao.classList.add('selected');
+} else {
+opcao.classList.remove('selected');
+}
+});
+
+// Recalcular total
+atualizarCarrinho();
+}
+
+function finalizarPedido() {
+if (carrinho.length === 0) {
+alert('Adicione itens ao carrinho antes de finalizar o pedido.');
+return;
+}
+
+let mensagem = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
+
+carrinho.forEach(item => {
+mensagem += `${item.quantidade}x ${item.nome} - R$${(item.preco * item.quantidade).toFixed(2)}\n`;
+});
+
+let subtotal = carrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
+mensagem += `\nSubtotal: R$${subtotal.toFixed(2)}`;
+
+if (tipoEntrega === 'entrega') {
+mensagem += `\nTaxa de entrega: R$${taxaEntrega.toFixed(2)}`;
+mensagem += `\nTotal: R$${(subtotal + taxaEntrega).toFixed(2)}`;
+mensagem += `\n\nForma de recebimento: Entrega (Preciso informar meu endereço)`;
+} else {
+mensagem += `\nTotal: R$${subtotal.toFixed(2)}`;
+mensagem += `\n\nForma de recebimento: Retirada no local`;
+}
+
+// Número de WhatsApp do estabelecimento
+const numeroWhatsApp = '5514998296269'; // Substitua pelo número correto
+
+// Codificar a mensagem para URL
+const mensagemCodificada = encodeURIComponent(mensagem);
+
+// Criar o link do WhatsApp
+const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+
+// Abrir o WhatsApp em uma nova aba
+window.open(linkWhatsApp, '_blank');
+}
+
+function filtrarCategoria(categoria) {
+// Atualizar botões de categoria
+document.querySelectorAll('.categoria-btn').forEach(btn => {
+if (btn.textContent.trim().toLowerCase().includes(categoria) || 
+(categoria === 'todos' && btn.textContent.trim().toLowerCase() === 'todos')) {
+btn.classList.add('active');
+} else {
+btn.classList.remove('active');
+}
+});
+
+// Filtrar produtos
+if (categoria === 'todos') {
+document.querySelectorAll('.produto').forEach(produto => {
+produto.style.display = 'block';
+});
+} else {
+document.querySelectorAll('.produto').forEach(produto => {
+if (produto.classList.contains(`categoria-${categoria}`)) {
+produto.style.display = 'block';
+} else {
+produto.style.display = 'none';
+}
+});
+}
+}
+
+// Inicializar o carrinho
+atualizarCarrinho();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'95a84423d155bc90',t:'MTc1MTczMzIyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+
+
